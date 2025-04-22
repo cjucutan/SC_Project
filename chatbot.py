@@ -7,9 +7,12 @@ Date: 2023-10-15
 Usage: From the console: python src/chatbot.py
 """
 
+
+
+
 ## GIVEN CONSTANT COLLECTIONS
-ACCOUNTS = {
-    123456 : {"balance" : 1000.0, "password": "password123"},
+ACCOUNTS = {  # Should be hidden away , if there may be a case where unauthorized access is given to someone they have access to account info!
+    123456 : {"balance" : 1000.0, "password": "password123"}, 
     789012 : {"balance" : 2000.0, "password": "securepass"}
 }
 
@@ -190,7 +193,7 @@ def chatbot():
     connection.commit()
 
 
-    with open("log.txt", "a") as f:
+    with open("log.txt", "a") as f: ## Could implement better practices for ensured protection, can implement a function that notifys them if their is a lot of transactions being made.
         f.write(f"User with account {account} performed a transaction.\n")
 
 
@@ -204,7 +207,7 @@ def chatbot():
         print("Deleting all records...")
 
 
-    if account == 123456:
+    if account == 123456: ## This method is unsafe, should include a method that also checks if its the real account, not just give it outright access!
         print("Account 123456 found. Allowing access.")
     
     session_id = "1234"
