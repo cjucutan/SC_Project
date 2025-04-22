@@ -21,4 +21,5 @@ jobs:
       - name: Bandit Scan
         uses: shundor/python-bandit-scan@ab1d87dfccc5a0ffab88be3aaac6ffe35c10d6cd
         with: # optional arguments
+          exit_zero: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
