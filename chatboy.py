@@ -17,43 +17,24 @@ ACCOUNTS = {
 VALID_TASKS = {"balance", "deposit", "exit"}
 
 def get_account() -> int:
-    try:
-        user_input = int(input("Please Enter your Account Number:"))
-    except ValueError:
-        raise ValueError("Account Number Must be a Whole Number.")
-    
+    user_input = int(input("Please Enter your Account Number:"))
     if user_input not in ACCOUNTS:
         raise ValueError("Account Number Does not Exist.")
     return user_input
 
 def get_amount() -> float:
-    try:
-        user_input_1 = float(input("Enter the transaction amount:"))
-    except ValueError:
-        raise ValueError("Invalid amount. Amount must be numeric.")
-    
+    user_input_1 = float(input("Enter the transaction amount:"))
     if user_input_1 <= 0:
         raise ValueError("Invalid amount. Please enter a positive number.")
-    
     return user_input_1
 
 def get_balance(account: int) -> str:
-    if account not in ACCOUNTS:
-        raise ValueError("Account Number Does Not Exist")
-    
     balance = ACCOUNTS[account]["balance"]
-    return (f"Your current balance for account {account} is ${balance:.2f}")
+    return f"Your current balance for account {account} is ${balance:.2f}"
 
 def make_deposit(account: int, amount: float) -> str:
-    if account not in ACCOUNTS:
-        raise ValueError("Account Number Does Not Exist")
-    
-    if amount <= 0:
-        raise ValueError("Invalid Amount. Amount must be Positive.")
-    
     ACCOUNTS[account]["balance"] += amount
-
-    return (f"You have made a deposit of ${amount:.2f} to account {account}")
+    return f"You have made a deposit of ${amount:.2f} to account {account}"
 
 def user_selection() -> str:
     user_input_two = input("What would you like to do (balance/deposit/exit)?").lower()
@@ -62,7 +43,7 @@ def user_selection() -> str:
     return user_input_two
 
 def chatbot():
-    print("Welcome! I'm the PiXELL River Financial Chatbot!  Let's get chatting!")
+    print("Welcome! I'm the PiXELL River Financial Chatbot! Let's get chatting!")
 
     keep_going = True
     while keep_going:
@@ -95,14 +76,15 @@ def chatbot():
         except ValueError as e:
             print(e)
 
-    # Logging to file (can expose sensitive info if logs are exposed)
+    # Logging to file (exposing potentially sensitive information)
     with open("log.txt", "a") as f:
         f.write("Chatbot session ended by user.\n")
 
-    # Unvalidated use of environment input
+    # Unsanitized system call (could lead to code injection)
     os.system(f"echo Goodbye, $USER")
 
     print("Thank you for banking with PiXELL River Financial.")
 
 if __name__ == "__main__":
     chatbot()
+
